@@ -3,9 +3,12 @@ const phrase = document.getElementById('phrase');
 const overlay = document.getElementById('overlay');
 const btnReset = document.querySelector("a.btn__reset");
 const scoreboard = document.getElementById('scoreboard');
-let ol = document.querySelector('ol');
-let heart = document.getElementsByClassName("tries");
-// let heart = ol.firstElementChild;
+const heart = document.getElementsByClassName("tries");
+const liLetter = document.getElementsByClassName('letter');
+const liSpace = document.getElementsByClassName('space');
+const liShow = document.getElementsByClassName('show');
+const chosen = document.getElementsByClassName('chosen');
+const title = document.querySelector('.title');
 var wrong = 0;
 var phrases = [
   'Calm before the storm',
@@ -24,24 +27,49 @@ const ul = document.querySelector('#phrase ul');
     // let phraseLetters = Array.from(randomPhrase);
     return phraseLetters;
   }
-  // append phrase letters to document window
 
+  // append phrase letters to document window
   const addPhraseToDisplay = (arr) => {
     let phraseLetters = getRandomPhraseAsArray(phrases);
     phraseLetters.forEach(function(tile) {
-      // for (var i = 0; i < phraseLetters.length; i++) {
-      // var text = document.createTextNode(phraseLetters[i]);
       const li = document.createElement('li');
       li.textContent = tile;
       if (tile.includes(' ')) {
           li.className += 'space';
-        } else {
+          } else {
             li.className += 'letter';
-        }
-    ul.appendChild(li);
+          }
+      ul.appendChild(li);
+    });
+}
+
+// remove phrase letters from DOM
+const removeLetters = () => {
+  for (let i =Array.from(liLetter).length-1; i>=0; i--) {
+        ul.removeChild(liLetter[i]);
+  }
+}
+
+// Remove elements with class 'space' from DOM
+const removeSpaces = () => {
+  for (let i =Array.from(liSpace).length-1; i>=0; i--) {
+        ul.removeChild(liSpace[i]);
+  }
+}
+const heartTransplant = () => {
+  let heartBlk = Array.from(heart);
+    heartBlk.forEach(function(hrt) {
+      hrt.style.display ="inline-block"
   });
 }
 
+// Remove previous phrase
+const reset = () => {
+    removeSpaces();
+    removeLetters();
+}
+
+//compare keyboard letter clicks to hidden phrase letters & reveal matches
 const checkLetter = (btn) => {
   let clicks = false;
   const lett = document.getElementsByClassName("letter");
@@ -56,9 +84,10 @@ const checkLetter = (btn) => {
 return clicks;
 }
 
+
 // implement checkletter function with click event listener
 // add chosen class to buttons
-let buttonClick = qwerty.addEventListener('click', (event) => {
+qwerty.addEventListener('click', (event) => {
     let btnLtr = event.target;
       if (event.target.tagName == 'BUTTON') {
         btnLtr.classList.add('chosen');
@@ -66,25 +95,56 @@ let buttonClick = qwerty.addEventListener('click', (event) => {
       }
     let letterFound = checkLetter(btnLtr);
       if (!letterFound) {
-        wrong++;
-        heart[wrong-1].style.display="none";
-        // for (let i=wrong; i<heart.length; i++) {
-        // heart[i].style.display="none";
-        // }
-        console.log('You clicked ' + wrong + ' wrong keys!');
-        if (wrong===5) {
-          console.log('GAME OVER');
+        let btnLtr = event.target;
+          if (event.target.tagName == 'BUTTON') {
+            wrong++;
+            heart[wrong-1].style.display="none";
         }
     }
+    checkWin();
+    checkWrong();
 });
 
-//remove the overlay
+// Check if phrase is solved & game is won
+const checkWin = () => {
+  if (liLetter.length === liShow.length) {
+      overlay.style.display="block";
+      overlay.className="win";
+      title.innerHTML="Congratulations!";
+      console.log('You\'ve Won');
+    }
+    return true;
+  }
+
+// Check if game is lost
+const checkWrong = () => {
+  if (wrong===5) {
+      overlay.style.display="block";
+      overlay.className ='lose';
+      title.innerHTML="Better Luck Next Time!";
+      console.log('GAME OVER');
+    }
+    return true;
+  }
+
+// reset keyboard
+  const startOver = () => {
+    let resetChosen = Array.from(chosen).map(letter => letter.classList.remove('chosen'));
+    let button = document.getElementsByTagName('button');
+    Array.from(button).forEach(button => button.removeAttribute('disabled'));
+      heartTransplant();
+  }
+
+// remove the overlay
 btnReset.addEventListener('click', () => {
   overlay.style.display="none";
+  reset();
   const phraseArray = getRandomPhraseAsArray(phrases);
   addPhraseToDisplay(phraseArray);
-});
+  startOver();
 
+  // removeLetters(phraseArray);
+});
 
 
 

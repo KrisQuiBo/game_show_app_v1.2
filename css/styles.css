@@ -164,3 +164,6 @@ button {
 .lose a {
   color: var(--color-lose);
 }
+.tries {
+  display: inline-block;
+}
