@@ -18,6 +18,7 @@ var phrases = [
   'Roll with the Punches'
 ];
 const ul = document.querySelector('#phrase ul');
+const restart = document.createElement('button');
 
 // generate random phrase & split into letters - option #2
   const getRandomPhraseAsArray = (arr) => {
@@ -80,7 +81,7 @@ const checkLetter = (btn) => {
     for (var i=0; i<newLetter.length; i++) {
       if (btn.textContent === newLetter[i].textContent) {
         clicks=true;
-        newLetter[i].classList.add('show');
+        newLetter[i].classList.add('show', 'twirl');
         // let newLett = newLetter.map(letter => letter.classList.add('show'));
     }
   }
@@ -102,6 +103,7 @@ qwerty.addEventListener('click', (event) => {
           if (event.target.tagName == 'BUTTON') {
             wrong++;
             heart[wrong-1].style.display="none";
+            btnLtr.classList.add('shake');
         }
     }
     checkWin();
@@ -109,22 +111,30 @@ qwerty.addEventListener('click', (event) => {
 });
 
 // Check if phrase is solved & game is won
+
+const winWin = () => {
+  overlay.style.display = 'block';
+  overlay.className = 'win';
+  title.innerHTML = "Congratulations!";
+  }
+
 const checkWin = () => {
   if (liLetter.length === liShow.length) {
-      overlay.style.display="block";
-      overlay.className="win";
-      title.innerHTML="Congratulations!";
+      setTimeout(winWin(), 5000);
       console.log('You\'ve Won');
     }
     return true;
   }
 
 // Check if game is lost
+const loseLose = () => {
+  overlay.style.display='block';
+  overlay.className ='lose';
+  title.innerHTML="Better Luck Next Time!";
+  }
 const checkWrong = () => {
   if (wrong===5) {
-      overlay.style.display="block";
-      overlay.className ='lose';
-      title.innerHTML="Better Luck Next Time!";
+      loseLose();
       console.log('GAME OVER');
     }
     return true;
