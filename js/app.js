@@ -56,11 +56,14 @@ const removeSpaces = () => {
         ul.removeChild(liSpace[i]);
   }
 }
+
+// Replace heart tries
 const heartTransplant = () => {
   let heartBlk = Array.from(heart);
     heartBlk.forEach(function(hrt) {
       hrt.style.display ="inline-block"
   });
+  wrong = 0;
 }
 
 // Remove previous phrase
@@ -142,8 +145,6 @@ btnReset.addEventListener('click', () => {
   const phraseArray = getRandomPhraseAsArray(phrases);
   addPhraseToDisplay(phraseArray);
   startOver();
-
-  // removeLetters(phraseArray);
 });
 
 
