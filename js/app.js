@@ -2,7 +2,6 @@ const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
 const overlay = document.getElementById('overlay');
 const btnReset = document.querySelector("a.btn__reset");
-const scoreboard = document.getElementById('scoreboard');
 const heart = document.getElementsByClassName("tries");
 const liLetter = document.getElementsByClassName('letter');
 const liSpace = document.getElementsByClassName('space');
@@ -112,7 +111,7 @@ qwerty.addEventListener('click', (event) => {
 
 // Check if phrase is solved & game is won
 
-const winWin = () => {
+const displayWin = () => {
   overlay.style.display = 'block';
   overlay.className = 'win';
   title.innerHTML = "Congratulations!";
@@ -120,7 +119,7 @@ const winWin = () => {
 
 const checkWin = () => {
   if (liLetter.length === liShow.length) {
-      setTimeout(winWin(), 5000);
+      setTimeout(displayWin(), 5000);
       console.log('You\'ve Won');
     }
     return true;
