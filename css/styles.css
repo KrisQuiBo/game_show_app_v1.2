@@ -1,6 +1,9 @@
-/* Main styles */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&Roboto:300');
+/* Game Show APP */
 
+
+/* Main styles */
+/* @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&Roboto:300'); */
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC&display=swap');
 /* Variables */
 
 :root {
@@ -14,6 +17,7 @@
   --font-size-large: 60px;
   --font-size-medium: 30px;
   --transition: all .2s ease-in-out;
+  --background-start: url();
 }
 
 /* main */
@@ -23,10 +27,29 @@
 }
 
 body {
+  position: relative;
   justify-content: space-evenly;
   flex-direction: column;
   display: flex;
   height: 100vh;
+  font-family: 'Amatic SC', cursive;
+  /* background: url(../images/IMG_0227.jpg); */
+  background-position: center;
+  background-size: cover;
+}
+
+body::after {
+  content: "";
+  background: url(../images/IMG_0227.jpg);
+  background-position: center;
+  background-size: cover;
+  opacity: 0.1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
 }
 
 li, ol, ul {
@@ -36,13 +59,18 @@ li, ol, ul {
 
 h2 {
   margin: 0;
-  text-transform: uppercase;
-  font-family: 'Open Sans', sans-serif;
+  /* text-transform: uppercase; */
+  /* font-family: 'Open Sans', sans-serif; */
   font-size: var(--font-size-large);
   margin: 0;
 }
 
+.main-container p {
+  font-size: 2rem;
+}
+
 button {
+  font-family: 'Amatic SC';
   margin: 6px;
   border: 1px solid transparent;
   padding: .5rem 1rem;
@@ -95,8 +123,8 @@ button {
 
 .show {
   color: #000;
-  /* background-color: #76CE82; */
-  background-color: palegreen;
+  background-color: #ceac76;
+  /* background-color: palegreen; */
   animation-name: twirl;
   animation-duration: 2s;
 
@@ -104,8 +132,8 @@ button {
 
 @keyframes twirl {
 from { transform: rotateY(360deg) scale(2);
-  background-color: honeydew;}
-to {  transform: rotateY(0deg) scale(1); background-color: palegreen;}
+  background-color: wheat;}
+to {  transform: rotateY(0deg) scale(1); background-color: #ceac76;}
 
 }
 /* Keyboard */
@@ -124,7 +152,7 @@ to {  transform: rotateY(0deg) scale(1); background-color: palegreen;}
 }
 
 .chosen {
-  background: var(--color-neutral);
+  /* background: var(--color-neutral); */
   border-radius: 5px;
   font-size: var(--font-size-medium);
   color: #FFFFFF;
@@ -135,6 +163,7 @@ to {  transform: rotateY(0deg) scale(1); background-color: palegreen;}
   margin: 100px auto;
   background: #FFFFFF;
   border-radius: 5px;
+  cursor: pointer;
   font-size: var(--font-size-medium);
 }
 
@@ -156,13 +185,15 @@ to {  transform: rotateY(0deg) scale(1); background-color: palegreen;}
 .title {
   color: #FFF;
 }
-
+.keyrow {
+  font-family: 'Amatic SC', cursive;
+}
 .start {
-  background-color: var(--color-start);
+  background-color: var(--color-neutral);
 }
 
 .start a {
-  color: var(--color-win);
+  color: var(--color-start);
 }
 
 .win {
@@ -188,4 +219,9 @@ to {  transform: rotateY(0deg) scale(1); background-color: palegreen;}
 }
 .tries {
   display: inline-block;
+  background-color: white;
+  border-radius: 50%;
+  border: 1px solid var(--color-neutral);
+  padding: 1rem 2.7rem;
+  margin: .5rem;
 }

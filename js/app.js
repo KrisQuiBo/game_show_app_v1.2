@@ -14,7 +14,10 @@ var phrases = [
   'Every cloud has a silver lining',
   'My cup of tea',
   'On cloud nine',
-  'Roll with the Punches'
+  'Roll with the Punches',
+  'Go with the Flow',
+  'Winter is coming',
+  'let it snow'
 ];
 const ul = document.querySelector('#phrase ul');
 const restart = document.createElement('button');
@@ -114,7 +117,7 @@ qwerty.addEventListener('click', (event) => {
 const displayWin = () => {
   overlay.style.display = 'block';
   overlay.className = 'win';
-  title.innerHTML = "Congratulations!";
+  title.innerHTML = "Congratulations! Now hunker down and stay cozy!";
   }
 
 const checkWin = () => {
